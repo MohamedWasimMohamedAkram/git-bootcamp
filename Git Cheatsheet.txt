@@ -197,5 +197,28 @@ git push -u origin dogs - means upstream so if we use it first, we can use git p
 
 *********************************************************************************************************************************************************
 Git Fetch and Git Pull 
+origin/master is the remote tracking branch so this is the tracker from the github repo to the remote repo.
 
+When I clone from github and have mutliple branches on github, it wont clone all branches onto the machine. You can see them from git branch -r. You can git checkout origin/branch. This makes detached HEAD. 
+git switch branch and if it is in the remote branches, it will make a local branch that tracks from the github branch.
+
+git fetch - if there are additional commits on github that aren't on local machine. git fetch is the inverse of git push (from remote to local). It lets you see what others have been working on without making changes to our files.
+
+git pull - it updates the HEAD repo so it updatesyour working directory. git pull = git fetch + git merge. git pull can result in merge conflicts. You can resolve it just like in merge. Shorthand expression is:
+git pull - this will set remote to origin and branch will default to whatever tracking connection is set. Like if im on dogs branch it will pull from git pull origin dogs.
+*********************************************************************************************************************************************************
+
+
+*********************************************************************************************************************************************************
+Collaboration Workflows
+Use feature branches to work on additional features without breaking main/master code.
+One way of requesting to merge is pull requests. The steps are:
+- Do some work locally on a feature branch
+- Push the feature branch to Github
+- Open a pull request using the feature branch just pushed up to Github
+- Wait for the PR to be approved and merged.
+
+Fork & Clone
+Forking - Making a copy of Github Repo. It gets added to your account and you can do what you want with it. After forking, you can clone to your computer and do what you want.
+You can make a pull request to the original after forking it and pull request
 *********************************************************************************************************************************************************
