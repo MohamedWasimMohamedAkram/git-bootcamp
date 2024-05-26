@@ -1,0 +1,201 @@
+*********************************************************************************************************************************************************
+Configuring Git:
+git config --global user.name "Enter Name"
+git config --global user.email "Enter Email"
+
+To see what name or email is:
+git config user.name
+git config user.email
+*********************************************************************************************************************************************************
+
+*********************************************************************************************************************************************************Git Kraken is to visualize git commands throughout its lifetime
+*********************************************************************************************************************************************************
+
+*********************************************************************************************************************************************************
+Git Commands:
+
+NOTE: DONT INCLUDE <> in your commands so touch notes.txt NOT touch <notes.txt>
+
+ls - list contents of the current directory
+
+start . - opens file explorer of current directory (Windows)
+
+open . - opens file explorer of current directory (Mac)
+
+NOTE: You can chain these commands with folders inside current directory like ls Downloads provided that Downloads is in current directory. Same for start .
+
+pwd - Prints current working directory. Shows where you are.
+
+cd <enter directory> - Change directory to the enter directory. Eg. cd Music goes to the Music folder if Music folder exists.
+
+cd .. - Goes back/behind a level so if you are on C/Users/Githubberson and you use cd .., it goes to C/Users.
+
+touch <filename> - makes a file so touch notes.txt makes a file called notes in text format in the directory you are in. You can make multiple files too with touch red.txt yellow.py green.pdf and this makes three files in the formats mentioned. CAN ONLY MAKE FILES.
+
+rm <filename> - removes a file in the current directory so rm notes.txt removes file called notes.txt. CAN ONLY REMOVE FILES.
+
+mkdir <foldername> - makes a folder in the current directory so mkdir MyNewFolder makes a folder called MyNewFolder. CAN ONLY MAKE FOLDERS.
+
+rmdir <foldername> - removes an empty folder in the current directory so rmdir MyNewFolder permanently removes the folder called MyNewFolder. CAN ONLY REMOVE EMPTY FOLDERS. rmdir will only remove a directory if the directory is empty.
+
+These commands can have flags like -a, -r, -f. 
+ls -a - shows hidden files and folders.
+rm -rf - used to delete folders and files (recursively forced) -- So use this to delete folders with content inside.
+*********************************************************************************************************************************************************
+
+*********************************************************************************************************************************************************
+git init initializes a folder to be a git repository
+git status - shows status of git repositories
+.git folder has the repo history
+DO NOT INIT REPO INSIDE A REPO - CONFUSING
+*********************************************************************************************************************************************************
+
+*********************************************************************************************************************************************************
+Basic Git Workflow:
+1) Work on Stuff - Make new files, edit files, delete files etc.
+2) Add Changes - Group specific changes together, in preparation of committing
+3) Commit - Commit everything that was previously added
+
+Commit is a checkpoint in time.
+
+Working Directory ---> git add ----> Staging Area ----> git commit -----> Repository
+
+git add file1 file2
+git add . stages all files
+
+git commit needs a message when you're committing.
+git commit -m "my message"
+git commit enters a second stage with another editor
+git commit -a -m "Enter message" adds and commits together without git add and then git commit
+
+git commit --amend allows you to commit with your previously commited files (last commit) in case you forgot to commit a file and then it opens the text editor (in VIM or setup code editor) to edit your previously typed commit message
+
+To exit editor - :q
+*********************************************************************************************************************************************************
+
+*********************************************************************************************************************************************************
+Ignoring files - We can tell Git which files and directories to ignore using .gitignore file. This can be used for Secrets, OS Files, Log Files, Dependencies
+.DS_Store will ignore files named .DS_Store
+folderName/ will ignore an entire directory called folderName
+*.log will ignore any files with the .log extension
+*********************************************************************************************************************************************************
+
+*********************************************************************************************************************************************************
+Git Branching
+They are like alternate timelines for a project. Like creating separate contexts where we can try new things like make a new navbar on a branch and try out a new UI on another branch.
+
+master is the default branch name when you create a new repo (official or main branch). Github renamed it master to main but Git hasn't yet.
+
+commit bcadds43543fefd (HEAD -> master) - HEAD is a pointer that refers to the current location in your repo. HEAD points to the last commit you made. So if you were in another branch, HEAD will point there.
+
+git branch shows existing branches in the repo.
+git branch <branch-name> creates a new branch based on HEAD but it doesn't switch to it
+git switch <branch-name> switches to branch-name branch
+
+The current location when you branch is very important.
+
+git checkout <branch-name> was used before to switch branches but it does additional things
+
+git swtich -c <branch-name> makes new branch and switches to it
+
+get checkout -b <branch-name> does the same thing as git switch -c <branch-name>
+
+if you try switching branches before commiting unstaged work, it won't allow you
+
+git branch -d branch-name (can't delete while on the branch) deletes the branch-name branch. It can only be deleted it merged. if not, use git branch -D branch-name force deletes it.
+
+git branch -m renamedName renames the branch (you have to be on the branch to rename it).
+*********************************************************************************************************************************************************
+
+*********************************************************************************************************************************************************
+Git Merging
+After working on a branch, if it is good enough to be combined with the original, we merge it.
+To merge:
+- Switch to the branch you want to merge changes to
+- Use git merge to merge changes from a specific branch into the current branch. The branch still exists after merging. It just merges the data until that point
+
+Master fast foward merges if master hasn't been changed.
+
+If Git is not automatically able to merge, there is a conflict. This is like when the same line of code is modified in master and in a branch.
+
+You have to decide which is important and decide which changes are essential.
+
+
+*********************************************************************************************************************************************************
+
+*********************************************************************************************************************************************************
+Git Diff
+git diff - used to view changes between commits, branches etc in files that haven't been staged yet.
+
+git diff HEAD - lists all changes in the working tree since your last commit
+
+git diff --staged - lists all changes between the stagig area and our last commit
+
+git diff [filename] or git diff HEAD [filename] and others too - For specific files
+
+git diff branch1..branch2 - lists changes between the tips of branch1 and branch2
+
+git diff commit1..commit2 - compares two commits with their hashes
+
+*********************************************************************************************************************************************************
+
+*********************************************************************************************************************************************************
+Git Stashing
+If you have uncommited or unstaged work from a branch and you need to go to branch, you don't need to commit to switch. The changes will come with you if there's no conflicts to the branch you changed to.
+
+git stash or git stash save - will take uncommited changes and stashes them, reverting the changes in your working copy.
+
+git stash pop - remove the most recently stashed changes and reapply them to your working copy.
+
+git stash apply - apply whatever is stashed away without removing it from the stash. This can be useful if you want to apply stashed changes to multiple branches
+
+git stash list - show the stash contents
+
+git stash drop stash<stash-id> - used to remove a stash from the stash contents
+
+git stash clear - clear the stash
+*********************************************************************************************************************************************************
+
+*********************************************************************************************************************************************************
+git checkout hash-num used to view a previous commit. When doing this, HEAD refers to a specific commit rather than a branch. You can do specific things from here:
+- Examine contents
+- git switch master and HEAD reattaches to master
+- Create a new branch from there.
+
+git checkout HEAD filename - Goes to the point of previous commit (where HEAD is pointing)
+
+git checkout -- file - does the same as git checkout HEAD filename
+
+git restore filename - This is the new command to replace git checkout.
+
+git restore --source HEAD~1 filename - Goes to a specific commit. HEAD~1 means it is 1 previous commit from where HEAD is pointing so HEAD~2 is 2 previous from where HEAD is poiting. It removes unstaged changes.
+
+git restore --staged filename - It unstages files that have been staged.
+
+git reset commit-hash - Will reset a repo to a specific commit so the commits are gone. This doesn't make the changes go away. It takes the commit away so you can take it to another branch so master doesn't have them.
+
+git reset --hard commit-hash - Undos the commit and the changes go away too. Use this if you're sure you want to get rid of the changes.
+
+git revert commit-hash - It undos changes but it makes a new commit and it undos the changes. reset goes back to the commit whereas revert makes a new commit without the changes. It's like the mistake commit is there in log but the new commit doesn't have it.
+
+*********************************************************************************************************************************************************
+
+*********************************************************************************************************************************************************
+Github Basics
+git remote or git remote -v displays any existing remotes
+
+git remote add origin url - can replace origin with any name but origin is common name. Replace url with the github repo url.
+
+git remote remove name - remove a remote
+
+git push <remote> <branch> - so for ours, it will be git push origin master or for branch it will be git push origin branch.
+
+git push origin local-branch:name-of-branch-in-github - pushes a branch to another branch on github
+
+git push -u origin dogs - means upstream so if we use it first, we can use git push rather than git push origin dogs  next time.
+*********************************************************************************************************************************************************
+
+*********************************************************************************************************************************************************
+Git Fetch and Git Pull 
+
+*********************************************************************************************************************************************************
